@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Registration</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #fffbfb;
+        margin: 0;
+        padding: 0;
+    }
+    h2{
+      background-color: #c715c7;
+    }
+
+    .registration-box {
+        background: #ecd7ef;
+        width: 400px;
+        padding: 20px;
+        border-radius: 10px purple;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+        margin: 50px auto;
+        color: #fff;
+        padding-right:50px;
+    }
+
+    .registration-box h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .radio-group {
+        margin-bottom: 15px;
+    }
+
+    .radio-group label {
+        margin-right: 10px;
+    }
+
+    .radio-group input[type="radio"] {
+        margin-right: 5px;
+    }
+
+    .textbox {
+        margin-bottom: 15px;
+    }
+
+    .textbox input, .textbox select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .buttons button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .buttons button.cancel-btn {
+        background-color: #ccc;
+        color: #000;
+    }
+
+    .buttons button.submit-btn {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+</style>
+</head>
+<body>
+<div class="registration-box">
+    <h2>Event Registration</h2>
+    <p>Would you be attending the XYZ event?</p>
+    <div class="radio-group">
+        <label for="attending-yes"><input type="radio" name="attending" id="attending-yes" value="yes">Yes</label>
+        <label for="attending-no"><input type="radio" name="attending" id="attending-no" value="no">No</label>
+    </div>
+    <form id="registration-form" action="#" method="post">
+        <div class="textbox">
+            <input type="text" placeholder="Name" id="name">
+            <div id="nameError" class="error-message"></div>
+        </div>
+        <div class="textbox">
+            <input type="email" placeholder="Email" id="email">
+            <div id="emailError" class="error-message"></div>
+        </div>
+        <div class="textbox">
+            <input type="tel" placeholder="Phone Number" id="phone">
+            <div id="phoneError" class="error-message"></div>
+        </div>
+        <div class="textbox">
+            <label for="guests">How many guests are you bringing?</label>
+            <input type="number" id="guests" min="0">
+        </div>
+        <div class="textbox">
+            <label for="date">Date of Event:</label>
+            <input type="date" id="date">
+        </div>
+        <div class="textbox">
+            <label for="cuisine">Preferred Cuisine:</label>
+            <select id="cuisine">
+                <option value="Italian">Italian</option>
+                <option value="Mexican">Mexican</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Indian">Indian</option>
+                <option value="Mediterranean">Mediterranean</option>
+            </select>
+        </div>
+        <div class="buttons">
+            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="button" class="submit-btn" onclick="validateForm()">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        const nameInput = document.getElementById('name');
+        const nameError = document.getElementById('nameError');
+        if (nameInput.value.trim() === '') {
+            nameError.textContent = "Name is required";
+            return;
+        }
+        nameError.textContent = "";
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        if (!emailRegex.test(emailInput.value)) {
+            emailError.textContent = "Please enter a valid email address";
+            return;
+        }
+        emailError.textContent = "";
+
+        const phoneRegex = /^\d{10}$/;
+        const phoneInput = document.getElementById('phone');
+        const phoneError = document.getElementById('phoneError');
+        if (!phoneRegex.test(phoneInput.value)) {
+            phoneError.textContent = "Please enter a valid phone number";
+            return;
+        }
+        phoneError.textContent = "";
+
+        // If validation passes, submit the form
+        alert('Your details have been successfully stored in the local storage.');
+        // Implement form submission logic here
+    }
+</script>
+</body>
+</html>

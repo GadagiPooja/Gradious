@@ -1,0 +1,205 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Web Page</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    
+  }
+  
+  .container {
+    background-color: #89FABF; /* Default background color for laptop */
+    padding: 20px;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .col {
+    flex: 0 0 30%; /* Show 3 pictures in a row by default */
+    margin-bottom: 20px;
+  }
+  
+  img {
+    width: 100%;
+    height: auto;
+  }
+  
+  @media screen and (max-width: 768px) {
+    /* Tablet style */
+    .container {
+      background-color: "#8904LA"; /* Background color for tablet */
+    }
+    
+    .col {
+      flex: 0 0 45%; /* Show 2 pictures in a row for tablet */
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    /* Mobile style */
+    .container {
+      background-color: "#ЕЗЕЕЕЕ"; /* Background color for mobile */
+    }
+    
+    .col {
+      flex: 0 0 100%; /* Show 1 picture in a row for mobile */
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Responsive Web Page</h2>
+  <div class="row">
+    <div class="col">
+      <img src="./HTML-Assignment1/Images/DSC_1167.JPG" alt="Image 1">
+    </div>
+    <div class="col">
+      <img src="./HTML-Assignment1/Images/DSC_1167.JPG" alt="Image 2">
+    </div>
+    <div class="col">
+      <img src="./HTML-Assignment1/Images/DSC_1167.JPG" alt="Image 3">
+    </div>
+  </div>
+</div>
+
+</body>
+</html> -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fffbfb;
+            margin: 0;
+            padding: 0;
+        }
+        h2{
+          background-color: #c715c7;
+        }
+
+        .registration-box {
+            background: #ecd7ef;
+            width: 400px;
+            padding: 20px;
+            border-radius: 10px purple;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+            margin: 50px auto;
+            color: #fff;
+        }
+
+        .registration-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .radio-group {
+            margin-bottom: 15px;
+        }
+
+        .radio-group label {
+            margin-right: 10px;
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .textbox {
+            margin-bottom: 15px;
+        }
+
+        .textbox input, .textbox select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .buttons button.cancel-btn {
+            background-color: #ccc;
+            color: #000;
+        }
+
+        .buttons button.submit-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-box">
+        <h2>Event Registration</h2>
+        <p>Would you be attending the XYZ event?</p>
+        <div class="radio-group">
+            <label for="attending-yes"><input type="radio" name="attending" id="attending-yes" value="yes">Yes</label>
+            <label for="attending-no"><input type="radio" name="attending" id="attending-no" value="no">No</label>
+        </div>
+        <form id="registration-form" action="#" method="post">
+            <div class="textbox">
+                <input type="text" placeholder="Name" id="name" required>
+            </div>
+            <div class="textbox">
+                <input type="email" placeholder="Email" id="email" required>
+            </div>
+            <div class="textbox">
+                <input type="tel" placeholder="Phone Number" id="phone" required>
+            </div>
+            <div class="textbox">
+                <label for="guests">How many guests are you bringing?</label>
+                <input type="number" id="guests" min="0">
+            </div>
+            <div class="textbox">
+                <label for="date">Date of Event:</label>
+                <input type="date" id="date">
+            </div>
+            <div class="textbox">
+                <label for="cuisine">Preferred Cuisine:</label>
+                <select id="cuisine">
+                    <option value="Italian">Italian</option>
+                    <option value="Mexican">Mexican</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Indian">Indian</option>
+                    <option value="Mediterranean">Mediterranean</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button type="button" class="cancel-btn">Cancel</button>
+                <button type="submit" class="submit-btn">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

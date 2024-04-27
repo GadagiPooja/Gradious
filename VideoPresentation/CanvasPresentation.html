@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="1000" height="500" style="border: 1px solid red"></canvas>
+
+    <script>
+        //---> 1. finding the canvas Element
+         var canvas=document.getElementById("myCanvas");
+        //---> 2.creating drawing object
+        var ctx=canvas.getContext("2d");
+        //---> 3. drawing objects
+                // 1.Rectanle
+                // ctx.fillStyle="green";
+                // ctx.fillRect(0,0,190,95);
+
+                //2.Line
+                // ctx.moveTo(96,100);
+                // ctx.lineTo(200, 200);
+                // ctx.stroke();
+
+                //3.Circle
+                ctx.beginPath();
+                ctx.arc(300, 250, 70, 0, 2*Math.PI);
+                ctx.stroke();
+    </script>
+</body>
+</html>
