@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .table {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        .row {
+            display: flex;
+            width: 100%;
+        }
+        .cell {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
+        .header {
+            background-color: #b2d4ef;
+            color: rgb(39, 115, 187);
+            font-weight: bold;
+        }
+        .row:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .actions button {
+            padding: 5px 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Supplier Management System</h1>
+
+<button onclick="showAddForm()">Add Supplier</button>
+
+<div id="formContainer" class="hidden">
+    <h3>Add Supplier</h3>
+    <form id="supplierForm">
+        <label>
+            Supplier Name: <input type="text" id="supplierName">
+        </label><br>
+        <label>
+            Contact Information: <input type="text" id="contactInfo">
+        </label><br>
+        <label>
+            Products Supplied: <input type="text" id="productsSupplied">
+        </label><br>
+        <label>
+            Payment Terms: <input type="text" id="paymentTerms">
+        </label><br>
+        <button type="button" onclick="addSupplier()">Save</button>
+    </form>
+</div>
+
+<div class="table" id="supplierTable">
+    <!-- Table will be populated here -->
+</div>
+
+<script>
+    let suppliers = [];
+
+    function showAddForm() {
+        document.getElementById('formContainer').classList.remove('hidden');
+    }
+
+    function hideAddForm() {
+        document.getElementById('formContainer').classList.add('hidden');
+    }
+
+    function clearForm() {
+        document.getElementById('supplierName').value = '';
+        document.getElementById('contactInfo').value = '';
+        document.getElementById('productsSupplied').value = '';
+        document.getElementById('paymentTerms').value = '';
+    }
+
+    function addSupplier() {
+        const supplierName = document.getElementById('supplierName').value;
+        const contactInfo = document.getElementById('contactInfo').value;
+        const productsSupplied = document.getElementById('productsSupplied').value;
+        const paymentTerms = document.getElementById('paymentTerms').value;
+
+        suppliers.push({
+            supplierName,
+            contactInfo,
+            productsSupplied,
+            paymentTerms
+        });
+
+        clearForm();
+        hideAddForm();
+        renderTable();
+    }
+
+    function renderTable() {
+        const table = document.getElementById('supplierTable');
+        table.innerHTML = '';
+
+        // Create table header
+        const headerRow = document.createElement('div');
+        headerRow.classList.add('row', 'header');
+        const headers = ['Supplier Name', 'Contact Information', 'Products Supplied', 'Payment Terms', 'Actions'];
+        headers.forEach(header => {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.textContent = header;
+            headerRow.appendChild(cell);
+        });
+        table.appendChild(headerRow);
+
+        // Create table rows
+        suppliers.forEach((supplier, index) => {
+            const row = document.createElement('div');
+            row.classList.add('row');
+
+            Object.values(supplier).forEach(value => {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.textContent = value;
+                row.appendChild(cell);
+            });
+
+            const actionsCell = document.createElement('div');
+            actionsCell.classList.add('cell', 'actions');
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.onclick = () => editSupplier(index);
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = () => deleteSupplier(index);
+            actionsCell.appendChild(editButton);
+            actionsCell.appendChild(deleteButton);
+            row.appendChild(actionsCell);
+
+            table.appendChild(row);
+        });
+    }
+
+    function editSupplier(index) {
+        const supplier = suppliers[index];
+        document.getElementById('supplierName').value = supplier.supplierName;
+        document.getElementById('contactInfo').value = supplier.contactInfo;
+        document.getElementById('productsSupplied').value = supplier.productsSupplied;
+        document.getElementById('paymentTerms').value = supplier.paymentTerms;
+
+        showAddForm();
+        document.querySelector('#supplierForm button').textContent = 'Save';
+        document.querySelector('#supplierForm button').onclick = () => updateSupplier(index);
+    }
+
+    function updateSupplier(index) {
+        suppliers[index] = {
+            supplierName: document.getElementById('supplierName').value,
+            contactInfo: document.getElementById('contactInfo').value,
+            productsSupplied: document.getElementById('productsSupplied').value,
+            paymentTerms: document.getElementById('paymentTerms').value
+        };
+
+        clearForm();
+        hideAddForm();
+        renderTable();
+    }
+
+    function deleteSupplier(index) {
+        if (confirm('Are you sure you want to delete this supplier?')) {
+            suppliers.splice(index, 1);
+            renderTable();
+        }
+    }
+</script>
+
+</body>
+</html>

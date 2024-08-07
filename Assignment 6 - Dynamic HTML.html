@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buddy List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .buddy-list {
+            list-style: none;
+            padding: 0;
+            width: 300px;
+        }
+        .buddy-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .buddy-item .presence {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .buddy-item .profile-picture {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 20px;
+            position: relative;
+        }
+        .buddy-item .profile-picture::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        .presence-1::after {
+            background-color: green;
+        }
+        .presence-2::after {
+            background-color: red;
+        }
+        .presence-3::after {
+            background-color: yellow;
+        }
+        .presence-4::after {
+            background-color: grey;
+        }
+    </style>
+</head>
+<body onload="display()">
+
+<ul class="buddy-list" id="buddyList">
+    <!-- Buddy list items will be inserted here dynamically -->
+</ul>
+
+<script>
+    // Sample data
+    let users = [
+        {
+            "userid": "USR00001",
+            "name": "Andrew Grudde",
+            "profilePicture": "https://t4.ftcdn.net/jpg/03/45/99/21/360_F_345992128_yCnKz143e50LFo6g75hFeYP.jpg",
+            "statusMessage": "We become what we think about!",
+            "presence": 1
+        },
+        {
+            "userid": "USR00002",
+            "name": "Steve Hughes",
+            "profilePicture": "https://t4.ftcdn.net/jpg/03/45/99/21/360_F_345992128_yCnKz143e50LFo6g75hFeYP.jpg",
+            "statusMessage": "A positive mindset brings positive things",
+            "presence": 2
+        },
+        {
+            "userid": "USR00003",
+            "name": "Kathy Smiley",
+            "profilePicture": "https://t4.ftcdn.net/jpg/03/45/99/21/360_F_345992128_yCnKz143e50LFo6g75hFeYP.jpg",
+            "statusMessage": "One small positive thought can change your whole day",
+            "presence": 3
+        },
+        {
+            "userid": "USR00004",
+            "name": "Steve Dunk",
+            "profilePicture": "https://t4.ftcdn.net/jpg/03/45/99/21/360_F_345992128_yCnKz143e50LFo6g75hFeYP.jpg",
+            "statusMessage": "I am a rock star",
+            "presence": 1
+        },
+        {
+            "userid": "USR00005",
+            "name": "Maria Dropola",
+            "profilePicture": "https://t4.ftcdn.net/jpg/03/45/99/21/360_F_345992128_yCnKz143e50LFo6g75hFeYP.jpg",
+            "statusMessage": "I am using Gradious messenger",
+            "presence": 4
+        }
+    ];
+
+    // Display the list of users
+    function display() {
+        const buddyList = document.getElementById('buddyList');
+        buddyList.innerHTML = '';
+
+        users.forEach(user => {
+            const listItem = document.createElement('li');
+            listItem.className = 'buddy-item';
+
+            const profilePicContainer = document.createElement('div');
+            profilePicContainer.className = `profile-picture presence-${user.presence}`;
+
+            const profilePic = document.createElement('img');
+            profilePic.src = user.profilePicture;
+            profilePicContainer.appendChild(profilePic);
+
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = user.name;
+            nameSpan.style.marginLeft = '20px';
+
+            listItem.appendChild(profilePicContainer);
+            listItem.appendChild(nameSpan);
+
+            buddyList.appendChild(listItem);
+        });
+    }
+
+    // Add a new buddy
+    function addBuddy(user) {
+        users.unshift(user);
+        display();
+    }
+
+    // Update buddy info
+    function updateBuddy(updatedUser) {
+        users = users.map(user => user.userid === updatedUser.userid ? updatedUser : user);
+        display();
+    }
+
+    // Delete a buddy
+    function deleteBuddy(userid) {
+        users = users.filter(user => user.userid !== userid);
+        display();
+    }
+
+    // Update status message
+    function updateMessage(userid, newMessage) {
+        const user = users.find(user => user.userid === userid);
+        if (user) {
+            user.statusMessage = newMessage;
+            display();
+        }
+    }
+
+    // Update presence status
+    function updatePresence(userid, newPresence) {
+        const user = users.find(user => user.userid === userid);
+        if (user) {
+            user.presence = newPresence;
+            display();
+        }
+    }
+
+    // Example usage:
+    addBuddy({
+        "userid": "USR00006",
+        "name": "Abhisheik Kumar",
+        "profilePicture": "https://google.com/images/profile.jpg",
+        "statusMessage": "I am using Gradious messenger",
+        "presence": 1
+    });
+
+    updateBuddy({
+        "userid": "USR00001",
+        "name": "Andrew Grudde",
+        "profilePicture": "https://newprofilepic.jpg",
+        "statusMessage": "New status message",
+        "presence": 2
+    });
+
+    deleteBuddy("USR00002");
+
+    updateMessage("USR00003", "Do good and good will come to you");
+
+    updatePresence("USR00004", 3);
+</script>
+</body>
+</html>

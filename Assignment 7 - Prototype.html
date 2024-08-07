@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Inheritance Example</title>
+</head>
+
+<body>
+    <script>
+        // Base Class: Company
+        function Company(name, location) {
+            this.name = name;
+            this.location = location;
+            this.employees = [];
+        }
+
+        Company.prototype.hireEmployee = function (employeeName) {
+            this.employees.push(employeeName);
+            console.log(`${employeeName} has been hired at ${this.name}.`);
+        };
+
+        Company.prototype.displayDetails = function () {
+            console.log(`Company: ${this.name}`);
+            console.log(`Location: ${this.location}`);
+            console.log(`Employees: ${this.employees.join(', ')}`);
+        };
+
+        // Subclass: SoftwareCompany
+        function SoftwareCompany(name, location, techStack) {
+            Company.call(this, name, location); // Call the parent constructor
+            this.techStack = techStack;
+        }
+
+        // Inherit from Company
+        SoftwareCompany.prototype = Object.create(Company.prototype);
+        SoftwareCompany.prototype.constructor = SoftwareCompany;
+
+        // Additional method specific to SoftwareCompany
+        SoftwareCompany.prototype.displayTechStack = function () {
+            console.log(`Tech Stack: ${this.techStack}`);
+        };
+
+        // Subclass: ManufacturingCompany
+        function ManufacturingCompany(name, location, products) {
+            Company.call(this, name, location); // Call the parent constructor
+            this.products = products;
+        }
+
+        // Inherit from Company
+        ManufacturingCompany.prototype = Object.create(Company.prototype);
+        ManufacturingCompany.prototype.constructor = ManufacturingCompany;
+
+        // Additional method specific to ManufacturingCompany
+        ManufacturingCompany.prototype.displayProducts = function () {
+            console.log(`Products: ${this.products.join(', ')}`);
+        };
+
+        // Demonstration
+        // Creating a SoftwareCompany instance
+        var softwareCompany = new SoftwareCompany('Tech Solutions', 'New York', 'JavaScript, Python, AWS');
+        softwareCompany.hireEmployee('Alice');
+        softwareCompany.hireEmployee('Bob');
+        softwareCompany.displayDetails();
+        softwareCompany.displayTechStack();
+
+        // Creating a ManufacturingCompany instance
+        var manufacturingCompany = new ManufacturingCompany('Build It', 'Los Angeles', ['Widgets', 'Gadgets']);
+        manufacturingCompany.hireEmployee('Charlie');
+        manufacturingCompany.hireEmployee('David');
+        manufacturingCompany.displayDetails();
+        manufacturingCompany.displayProducts();
+    </script>
+</body>
+
+</html>

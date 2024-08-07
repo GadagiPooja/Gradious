@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timer App</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+  .navbar {
+    background-color: darkblue;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 0 10px;
+  }
+  .navbar a:hover {
+    background-color: #001f3f;
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: calc(100vh - 190px); /* Adjusted for navbar, footer, and button heights */
+    background-color: aqua;
+    padding: 20px; /* Added padding for spacing */
+  }
+  .main-box {
+    background-color: darkblue;
+    color: white;
+    /* paddng: 20px; */
+    margin: 10px;
+    text-align: center;
+    height: 300px;
+    width: calc(25% - 40px); /* Adjusted width for 4 boxes and margins */
+  }
+  footer {
+    background-color: darkblue;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Align buttons vertically */
+  }
+  footer button {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #001f3f;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  footer button:hover {
+    background-color: #003366;
+  }
+</style>
+</head>
+<body>
+    <div>
+  <div class="navbar">
+    <a href="#">Home</a>
+    <a href="#">Timer</a>
+    <a href="#">Clock</a>
+    <a href="#">Calendar</a>
+  </div>
+  <div class="container">
+    <div class="main-box">
+      <h3 style="font-size: 80px;">Days</h3>
+      <p id="days">0</p>
+      <input type="number" id="daysInput" placeholder="Days">
+    </div>
+    <div class="main-box">
+      <h3 style="font-size: 80px;">Hours</h3>
+      <p id="hours">0</p>
+      <input type="number" id="hoursInput" placeholder="Hours">
+    </div>
+    <div class="main-box">
+      <h3 style="font-size: 80px;">Minutes</h3>
+      <p id="minutes">0</p>
+      <input type="number" id="minutesInput" placeholder="Minutes">
+    </div>
+    <div class="main-box">
+      <h3 style="font-size: 80px;">Seconds</h3>
+      <p id="seconds">0</p>
+      <input type="number" id="secondsInput" placeholder="Seconds">
+    </div>
+
+    <div>
+        <button onclick="setTimer()" style="background-color: blue;">Set Timer</button>
+        <button onclick="startTimer()" style="background-color: orchid;">Start/Resume</button>
+        <button onclick="pauseTimer()" style="background-color: aquamarine;">Pause</button>
+        <button onclick="resetTimer()" style="background-color: red;">Reset</button>
+      </div>
+  </div>
+
+  
+  
+  <footer>
+    <h4>Instruction</h4>
+            1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, molestiae! Molestiae, possimus pariatur consectetur quae culpa volupt
+            <br>
+            2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, molestiae! Molestiae, possimus pariatur consectetur quae culpa voluptates saepe adip
+            <br>
+            3. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, molestiae! Molestiae, possimus pariatur consectetur quae culpa voluptates 
+            <br>
+            4. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, molestiae! Molestiae, possimus pariatur consectetur quae culpa voluptates saepe adipisci et repreh
+  </footer>
+
+<script>
+  let interval;
+  let totalSeconds = 0;
+
+  function setTimer() {
+    const days = parseInt(document.getElementById('daysInput').value) || 0;
+    const hours = parseInt(document.getElementById('hoursInput').value) || 0;
+    const minutes = parseInt(document.getElementById('minutesInput').value) || 0;
+    const seconds = parseInt(document.getElementById('secondsInput').value) || 0;
+
+    totalSeconds = days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds;
+    updateTimer();
+  }
+
+  function startTimer() {
+    interval = setInterval(updateTimer, 1000);
+  }
+
+  function pauseTimer() {
+    clearInterval(interval);
+  }
+
+  function resetTimer() {
+    clearInterval(interval);
+    totalSeconds = 0;
+    updateTimer();
+  }
+
+  function updateTimer() {
+    const days = Math.floor(totalSeconds / (60 * 60 * 24));
+    const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+    const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+    const seconds = totalSeconds % 60;
+
+    document.getElementById('days').innerText = days;
+    document.getElementById('hours').innerText = hours;
+    document.getElementById('minutes').innerText = minutes;
+    document.getElementById('seconds').innerText = seconds;
+    
+    totalSeconds--;
+
+    if (totalSeconds < 0) {
+      clearInterval(interval);
+    }
+  }
+</script>
+
+</body>
+</html>

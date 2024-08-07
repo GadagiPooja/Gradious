@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .table {
+            display: flex;
+            flex-direction: column;
+            width: 80%;  /* Reduced the width for a more compact table */
+            margin: auto; /* Center the table */
+            border-collapse: collapse;
+        }
+
+        .row {
+            display: flex;
+            width: 100%;
+        }
+
+        .cell {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+/* 
+        .row:nth-child(even) {
+            background-color: #f2f2f2;
+        } */
+
+        .header {
+            background-color: #b2d4ef;
+            color: rgb(39, 115, 187);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body onload="loadData()">
+
+<div class="table" id="userTable">
+    <!-- Data will be inserted here dynamically -->
+</div>
+
+<script>
+    function loadData() {
+        const sampleData = [
+        { "id": 1, "name": "John Doe", "email": "john@example.com", "age": 28 },
+            { "id": 2, "name": "Jane Smith", "email": "jane@example.com", "age": 34 },
+            { "id": 3, "name": "Michael Brown", "email": "michael@example.com", "age": 45 },
+            { "id": 4, "name": "Emily Davis", "email": "emily@example.com", "age": 23 },
+            { "id": 5, "name": "David Wilson", "email": "david@example.com", "age": 30 },
+            { "id": 6, "name": "Emma Johnson", "email": "emma@example.com", "age": 27 },
+            { "id": 7, "name": "Oliver Smith", "email": "oliver@example.com", "age": 40 },
+            { "id": 8, "name": "Sophia White", "email": "sophia@example.com", "age": 22 },
+            { "id": 9, "name": "Lucas Green", "email": "lucas@example.com", "age": 36 },
+            { "id": 10, "name": "Mia Taylor", "email": "mia@example.com", "age": 29 }
+        ];
+
+        // Check if the data is available in localStorage
+        if (!localStorage.getItem('users')) {
+            // Store the sample JSON data in localStorage
+            localStorage.setItem('users', JSON.stringify(sampleData));
+        }
+
+        // Read data from localStorage
+        const users = JSON.parse(localStorage.getItem('users'));
+
+        // Render the user info in the table
+        renderTable(users);
+    }
+
+    function renderTable(users) {
+        const userTable = document.getElementById('userTable');
+
+        // Create table header
+        const headerRow = document.createElement('div');
+        headerRow.classList.add('row', 'header');
+        const headers = ['ID', 'Name', 'Email', 'Age'];
+        headers.forEach(header => {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.textContent = header;
+            headerRow.appendChild(cell);
+        });
+        userTable.appendChild(headerRow);
+
+        // Create table rows
+        users.forEach(user => {
+            const row = document.createElement('div');
+            row.classList.add('row');
+
+            for (const key in user) {
+                if (user.hasOwnProperty(key)) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    cell.textContent = user[key];
+                    row.appendChild(cell);
+                }
+            }
+            userTable.appendChild(row);
+        });
+    }
+</script>
+
+</body>
+</html>
